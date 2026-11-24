@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VALUEWISE | Smart Product Evaluation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="#" class="logo">VALUE<span>WISE</span></a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#evaluate">Evaluate</a>
+    <a href="#compare">Compare</a>
+    <a href="#tracker">Price Tracker</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#assistant">AI Assistant</a>
+    <a href="#wishlist">Wishlist <span id="wishCount">0</span></a>
+  </nav>
+  <button class="login-btn" onclick="openAuth()">Login / Sign Up</button>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="eyebrow">SMART E-COMMERCE DECISION SYSTEM</span>
+    <h1>Buy Smarter.<br><span>Spend Better.</span></h1>
+    <p>Evaluate products using price, reviews, durability, warranty and alternative value. Make better purchasing decisions with VALUEWISE.</p>
+    <a href="#evaluate" class="primary-btn">Evaluate a Product →</a>
+    <div class="hero-stats">
+      <div><strong>360°</strong><small>Product Analysis</small></div>
+      <div><strong>AI</strong><small>Smart Assistance</small></div>
+      <div><strong>100%</strong><small>Smarter Decisions</small></div>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="card-top"><span>LIVE DEMO</span><span class="live-dot">●</span></div>
+    <div class="score-circle"><strong id="heroScore">85</strong><small>VALUE SCORE</small></div>
+    <h3>Excellent Product Value</h3>
+    <span class="recommendation">BUY RECOMMENDED</span>
+    <p>Based on multiple evaluation factors</p>
+    <div class="mini-metric"><span>Price value</span><b>90%</b></div>
+    <div class="progress"><span style="width:90%"></span></div>
+    <div class="mini-metric"><span>Review quality</span><b>85%</b></div>
+    <div class="progress"><span style="width:85%"></span></div>
+  </div>
+</section>
+
+<section class="section" id="evaluate">
+  <div class="section-heading">
+    <span class="eyebrow">SMART ANALYSIS</span>
+    <h2>Evaluate Your Product</h2>
+    <p>Enter product details to calculate its overall value.</p>
+  </div>
+  <div class="panel evaluation-panel">
+    <div class="form-grid">
+      <label>Product Name<input id="productName" placeholder="Example: Smartphone"></label>
+      <label>Product Price (₹)<input id="productPrice" type="number" placeholder="25000"></label>
+      <label>Product Rating (out of 5)<input id="productRating" type="number" min="0" max="5" step="0.1" placeholder="4.5"></label>
+      <label>Warranty (Years)<input id="productWarranty" type="number" min="0" placeholder="2"></label>
+      <label>Durability (out of 10)<input id="productDurability" type="number" min="0" max="10" placeholder="8"></label>
+      <label>Expected Market Price (₹)<input id="marketPrice" type="number" placeholder="30000"></label>
+    </div>
+    <button class="primary-btn" onclick="evaluateProduct()">Analyse Product</button>
+    <div id="evaluationResult" class="result-box hidden"></div>
+  </div>
+</section>
+
+<section class="section" id="compare">
+  <div class="section-heading">
+    <span class="eyebrow">MAKE THE RIGHT CHOICE</span>
+    <h2>Smart Product Comparison</h2>
+    <p>Compare up to four products side by side.</p>
+  </div>
+  <div class="panel">
+    <div class="form-grid">
+      <label>Product Name<input id="compareName" placeholder="Product name"></label>
+      <label>Price (₹)<input id="comparePrice" type="number" placeholder="Price"></label>
+      <label>Rating<input id="compareRating" type="number" min="0" max="5" step="0.1" placeholder="4.5"></label>
+      <label>Warranty (Years)<input id="compareWarranty" type="number" placeholder="2"></label>
+      <label>Durability (out of 10)<input id="compareDurability" type="number" min="0" max="10" placeholder="8"></label>
+    </div>
+    <button class="primary-btn" onclick="addComparison()">Add Product</button>
+    <div id="comparisonList" class="comparison-grid"></div>
+  </div>
+</section>
+
+<section class="section" id="tracker">
+  <div class="section-heading">
+    <span class="eyebrow">TRACK BEFORE YOU BUY</span>
+    <h2>Price History Tracker</h2>
+    <p>View an illustrative price trend for a product.</p>
+  </div>
+  <div class="panel">
+    <div class="form-grid">
+      <label>Product<input id="trackerName" placeholder="Example: Laptop"></label>
+      <label>Current Price (₹)<input id="trackerPrice" type="number" placeholder="45000"></label>
+    </div>
+    <button class="primary-btn" onclick="showPriceHistory()">View Price History</button>
+    <div id="priceMessage" class="result-box hidden"></div>
+    <canvas id="priceChart" height="110"></canvas>
+    <p class="disclaimer">Demo only: historical values are illustrative and are not live retailer prices.</p>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="section-heading">
+    <span class="eyebrow">TRUST THE REVIEWS</span>
+    <h2>Fake Review Detection</h2>
+    <p>Check review text for suspicious patterns.</p>
+  </div>
+  <div class="panel">
+    <label>Paste a product review<textarea id="reviewText" rows="5" placeholder="Enter the review here..."></textarea></label>
+    <button class="primary-btn" onclick="analyzeReview()">Analyse Review</button>
+    <div id="reviewResult" class="result-box hidden"></div>
+    <p class="disclaimer">This is a basic text-pattern demo, not a definitive fake-review detector.</p>
+  </div>
+</section>
+
+<section class="section" id="assistant">
+  <div class="section-heading">
+    <span class="eyebrow">YOUR SHOPPING COMPANION</span>
+    <h2>AI Shopping Assistant</h2>
+    <p>Ask questions to get basic shopping guidance.</p>
+  </div>
+  <div class="panel chat-panel">
+    <div id="chatMessages" class="chat-messages">
+      <div class="bot-message">Hi! I'm your VALUEWISE shopping assistant. Ask me about product value, reviews, prices or comparisons.</div>
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" placeholder="Ask something..." onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="primary-btn" onclick="sendMessage()">Send</button>
+    </div>
+    <p class="disclaimer">Demo assistant: responses use simple predefined guidance, not a live AI service.</p>
+  </div>
+</section>
+
+<section class="section" id="wishlist">
+  <div class="section-heading">
+    <span class="eyebrow">SAVE YOUR FAVOURITES</span>
+    <h2>My Wishlist</h2>
+    <p>Keep products you want to evaluate later.</p>
+  </div>
+  <div class="panel">
+    <div class="form-grid">
+      <label>Product Name<input id="wishName" placeholder="Product name"></label>
+      <label>Price (₹)<input id="wishPrice" type="number" placeholder="Price"></label>
+    </div>
+    <button class="primary-btn" onclick="addWishlist()">Add to Wishlist</button>
+    <div id="wishlistItems" class="comparison-grid"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <a href="#" class="logo">VALUE<span>WISE</span></a>
+  <p>Smart decisions. Better purchases.</p>
+  <small>© 2026 VALUEWISE. Student prototype.</small>
+</footer>
+
+<div id="authModal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeAuth()">×</button>
+    <h2 id="authTitle">Welcome Back</h2>
+    <p id="authSubtitle">Login to your VALUEWISE account</p>
+    <input id="authName" placeholder="Your name" class="auth-name hidden">
+    <input id="authEmail" type="email" placeholder="Email address">
+    <input id="authPassword" type="password" placeholder="Password">
+    <button class="primary-btn full-btn" onclick="handleAuth()">Continue</button>
+    <p class="auth-switch" onclick="toggleAuth()">Don't have an account? Sign up</p>
+    <p class="disclaimer">Prototype only. Do not enter real passwords or sensitive information.</p>
+    <div id="authMessage"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
